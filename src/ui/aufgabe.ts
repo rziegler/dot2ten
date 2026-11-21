@@ -3,7 +3,7 @@ import { BLOECKE } from '../domain/bloecke';
 import { isoDatum } from '../domain/datum';
 import { erfasse } from '../domain/fortschritt';
 import { hilfeFuer, lobFuer } from '../domain/hilfe';
-import { blockZeitUm, geloest, gesamtPlanMs, naechsterBlock, neueSession, restMs, vergehen, type Session } from '../domain/session';
+import { blockZeitUm, geloest, gesamtPlanMs, istVorbei, naechsterBlock, neueSession, restMs, vergehen, type Session } from '../domain/session';
 import { zwanzigerfeld } from '../domain/zwanzigerfeld';
 import { aendere, lies, tagVon, type Daten, type Tag } from '../speicher';
 import { geheZu, h, svg } from './dom';
@@ -19,7 +19,7 @@ export function aufgabeScreen(root: HTMLElement): () => void {
   const heute = isoDatum(new Date());
   const gespeichert = lies().session;
   let session: Session =
-    gespeichert && gespeichert.datum === heute && !gespeichert.fertig ? gespeichert : neueSession(heute, lies().einstellungen.minuten);
+    gespeichert && gespeichert.datum === heute && !istVorbei(gespeichert) ? gespeichert : neueSession(heute, lies().einstellungen.minuten);
 
   let modus: Modus = 'rechnen';
   let zuletzt: string[] = [];

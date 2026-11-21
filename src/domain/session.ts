@@ -62,6 +62,15 @@ export function restMs(s: Session): number {
   return Math.max(0, gesamtPlanMs(s) - s.gesamtMs);
 }
 
+/**
+ * Die Übung des Tages ist vorbei: abgeschlossen oder die Tagesdauer ist erreicht.
+ * Letzteres passiert, wenn die Dauer in den Einstellungen verkürzt wird oder man
+ * während der letzten Aufgabe pausiert.
+ */
+export function istVorbei(s: Session): boolean {
+  return restMs(s) <= 0;
+}
+
 export function gesamtPlanMs(s: Session): number {
   return s.plan.reduce((sum, m) => sum + m, 0) * MINUTE;
 }

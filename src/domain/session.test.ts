@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { wocheVon, wochentagKurz } from './datum';
-import { blockZeitUm, geloest, mitDauer, naechsterBlock, neueSession, restMs, vergehen } from './session';
+import { blockZeitUm, geloest, istVorbei, mitDauer, naechsterBlock, neueSession, restMs, vergehen } from './session';
 
 const MIN = 60_000;
 
@@ -42,6 +42,15 @@ describe('Session', () => {
     s = mitDauer(s, 5);
     expect(blockZeitUm(s)).toBe(true);
     expect(naechsterBlock(s).fertig).toBe(true);
+  });
+
+  it('ist vorbei, wenn die Tagesdauer erreicht ist, auch ohne Abschluss', () => {
+    let s = vergehen(neueSession('2026-11-23', 20), 6 * MIN);
+    expect(istVorbei(s)).toBe(false);
+    s = mitDauer(s, 5);
+    expect(s.fertig).toBe(false);
+    expect(istVorbei(s)).toBe(true);
+    expect(istVorbei({ ...neueSession('2026-11-23', 10), fertig: true })).toBe(true);
   });
 
   it('lässt eine fertige Übung fertig', () => {

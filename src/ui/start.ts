@@ -1,6 +1,6 @@
 import { BLOECKE } from '../domain/bloecke';
 import { isoDatum, wocheVon, wochentagKurz } from '../domain/datum';
-import { gesamtPlanMs, neueSession, restMs } from '../domain/session';
+import { gesamtPlanMs, istVorbei, neueSession, restMs } from '../domain/session';
 import { verteileZeit } from '../domain/zeit';
 import { aendere, lies, tagVon } from '../speicher';
 import { geheZu, h, svg } from './dom';
@@ -13,8 +13,8 @@ export function startScreen(root: HTMLElement): void {
   const d = lies();
   const heute = isoDatum(new Date());
   const session = d.session?.datum === heute ? d.session : undefined;
-  const laeuft = session !== undefined && !session.fertig && session.gesamtMs > 0;
-  const fertig = session?.fertig === true;
+  const fertig = session !== undefined && istVorbei(session);
+  const laeuft = session !== undefined && !fertig && session.gesamtMs > 0;
   const plan = session && !fertig ? session.plan : verteileZeit(d.einstellungen.minuten);
   const gesamtMin = plan.reduce((s, m) => s + m, 0);
   const restMin = laeuft ? Math.ceil(restMs(session) / 60_000) : gesamtMin;
