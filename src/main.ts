@@ -6,6 +6,7 @@ import '@fontsource/nunito/800.css';
 import './style.css';
 import { aufgabeScreen } from './ui/aufgabe';
 import { einstellungenScreen } from './ui/einstellungen';
+import { elternScreen } from './ui/eltern';
 import { startScreen } from './ui/start';
 import { tricksScreen } from './ui/tricks';
 
@@ -15,6 +16,7 @@ const ROUTEN: Record<string, Screen> = {
   '': startScreen,
   aufgabe: aufgabeScreen,
   tricks: tricksScreen,
+  eltern: elternScreen,
   einstellungen: einstellungenScreen,
 };
 
