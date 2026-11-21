@@ -35,17 +35,28 @@ export function vergehen(s: Session, ms: number): Session {
   return { ...s, blockMs: s.blockMs + ms, gesamtMs: s.gesamtMs + ms };
 }
 
-/** Die Blockzeit ist um; gewechselt wird erst nach der laufenden Aufgabe. */
+/**
+ * Die Blockzeit ist um; gewechselt wird erst nach der laufenden Aufgabe.
+ * Auch wenn die Tagesdauer erreicht ist, z. B. nachdem sie in den Einstellungen verkürzt wurde.
+ */
 export function blockZeitUm(s: Session): boolean {
-  return s.blockMs >= (s.plan[s.block] ?? 0) * MINUTE;
+  return s.blockMs >= (s.plan[s.block] ?? 0) * MINUTE || restMs(s) <= 0;
 }
 
 export function naechsterBlock(s: Session): Session {
-  if (s.block + 1 >= s.plan.length) return { ...s, fertig: true };
+  if (s.block + 1 >= s.plan.length || restMs(s) <= 0) return { ...s, fertig: true };
   return { ...s, block: s.block + 1, blockMs: 0 };
 }
 
 /** Eingestellte Tagesdauer minus tatsächlich gerechnete Zeit, unabhängig davon, in welchem Block man steht. */
+/**
+ * Übernimmt eine in den Einstellungen geänderte Tagesdauer in die laufende Übung.
+ * Die schon gerechnete Zeit und der aktuelle Block bleiben; eine fertige Übung bleibt fertig.
+ */
+export function mitDauer(s: Session, gesamtMinuten: number): Session {
+  return s.fertig ? s : { ...s, plan: verteileZeit(gesamtMinuten) };
+}
+
 export function restMs(s: Session): number {
   if (s.fertig) return 0;
   return Math.max(0, gesamtPlanMs(s) - s.gesamtMs);

@@ -1,4 +1,5 @@
 import { BLOECKE } from '../domain/bloecke';
+import { mitDauer } from '../domain/session';
 import { begrenzeMinuten, MAX_MINUTEN, MIN_MINUTEN, verteileZeit } from '../domain/zeit';
 import { aendere, lies, MAX_NAME, type Daten } from '../speicher';
 import { geheZu, h, svg } from './dom';
@@ -6,8 +7,11 @@ import { BLOCK_FARBE, begruessung, zurueckKnopf } from './gemeinsam';
 import { MINUS, PLUS } from './icons';
 
 /** Eine heute noch nicht begonnene Session wird verworfen, damit die neue Dauer gilt. */
-function ohneUnbegonneneSession(d: Daten): Daten {
-  return d.session && d.session.gesamtMs === 0 ? { ...d, session: undefined } : d;
+/** Eine noch nicht begonnene Übung wird neu geplant, eine laufende übernimmt die neue Dauer. */
+function mitNeuerDauer(d: Daten, minuten: number): Daten {
+  const einstellungen = { ...d.einstellungen, minuten };
+  if (!d.session) return { ...d, einstellungen };
+  return { ...d, einstellungen, session: d.session.gesamtMs === 0 ? undefined : mitDauer(d.session, minuten) };
 }
 
 export function einstellungenScreen(root: HTMLElement): void {
@@ -39,7 +43,7 @@ export function einstellungenScreen(root: HTMLElement): void {
 
   function setze(roh: number): void {
     const m = begrenzeMinuten(roh);
-    if (m !== lies().einstellungen.minuten) aendere((x) => ohneUnbegonneneSession({ ...x, einstellungen: { ...x.einstellungen, minuten: m } }));
+    if (m !== lies().einstellungen.minuten) aendere((x) => mitNeuerDauer(x, m));
     zeige(m);
   }
 

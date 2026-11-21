@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { wocheVon, wochentagKurz } from './datum';
-import { blockZeitUm, geloest, naechsterBlock, neueSession, restMs, vergehen } from './session';
+import { blockZeitUm, geloest, mitDauer, naechsterBlock, neueSession, restMs, vergehen } from './session';
 
 const MIN = 60_000;
 
@@ -26,6 +26,27 @@ describe('Session', () => {
     s = { ...s, block: 3, blockMs: 0 };
     expect(restMs(s)).toBe(8 * MIN);
     expect(restMs(vergehen(s, 20 * MIN))).toBe(0);
+  });
+
+  it('übernimmt eine geänderte Dauer und behält die gerechnete Zeit', () => {
+    let s = vergehen(neueSession('2026-11-23', 10), 3 * MIN);
+    s = mitDauer(s, 20);
+    expect(s.plan).toEqual([4, 6, 6, 4]);
+    expect(s.gesamtMs).toBe(3 * MIN);
+    expect(restMs(s)).toBe(17 * MIN);
+  });
+
+  it('wird fertig, wenn die verkürzte Dauer schon gerechnet ist', () => {
+    let s = naechsterBlock(vergehen(neueSession('2026-11-23', 20), 4 * MIN));
+    s = vergehen(s, 2 * MIN);
+    s = mitDauer(s, 5);
+    expect(blockZeitUm(s)).toBe(true);
+    expect(naechsterBlock(s).fertig).toBe(true);
+  });
+
+  it('lässt eine fertige Übung fertig', () => {
+    const s = { ...neueSession('2026-11-23', 10), fertig: true };
+    expect(mitDauer(s, 20)).toBe(s);
   });
 
   it('ist nach dem letzten Block fertig', () => {
