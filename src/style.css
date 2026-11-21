@@ -1099,6 +1099,356 @@ input[type='range'] {
   }
 }
 
+/* Handy im Hochformat: kleinere Schrift, alles untereinander, nichts breiter als der Bildschirm */
+@media (max-width: 600px) {
+  .screen {
+    gap: 16px;
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+  }
+  .kopf {
+    gap: 12px;
+  }
+  .kopf h1 {
+    font-size: 28px;
+  }
+  .pille {
+    min-height: 48px;
+    padding: 0 18px;
+    font-size: 17px;
+  }
+  .pille.klein {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 16px;
+  }
+  .pille.gross {
+    font-size: 24px;
+    min-height: 60px;
+    padding: 0 32px;
+    white-space: nowrap;
+  }
+  .karte {
+    border-radius: 22px;
+    padding: 18px;
+  }
+  .karte-titel {
+    font-size: 21px !important;
+  }
+
+  /* Start */
+  .start-kopf {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .begruessung {
+    flex: none;
+    gap: 12px;
+  }
+  .begruessung > svg {
+    width: 48px;
+    height: 48px;
+    flex: none;
+  }
+  .begruessung h1 {
+    font-size: 34px;
+  }
+  .begruessung p {
+    margin-top: 4px;
+    font-size: 17px;
+  }
+  .woche {
+    align-items: stretch;
+    gap: 6px;
+  }
+  .woche-tage {
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .tag {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    border-width: 2px;
+  }
+  .abschnitt {
+    font-size: 16px;
+  }
+  .start-mitte {
+    gap: 16px;
+  }
+  .los-karte {
+    flex: none;
+    border-radius: 26px;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+  .zeitring {
+    width: 150px;
+    height: 150px;
+  }
+  .zeitring svg {
+    width: 100%;
+    height: 100%;
+  }
+  .zeitring-zahl {
+    font-size: 56px;
+  }
+  .zeitring-einheit {
+    font-size: 16px;
+  }
+  .bloecke {
+    gap: 10px;
+  }
+  .block-zeile {
+    gap: 12px;
+    border-radius: 20px;
+    padding: 10px 14px;
+  }
+  .block-zeile > svg {
+    width: 40px;
+    height: 40px;
+    flex: none;
+  }
+  .block-zeile .titel {
+    font-size: 20px;
+  }
+  .block-zeile .unter {
+    font-size: 14px;
+  }
+  .block-zeile .status {
+    width: 32px;
+    height: 32px;
+  }
+  .fuss {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .fuss .pille {
+    flex: 1 1 auto;
+  }
+  .marke {
+    display: none;
+  }
+
+  /* Aufgabe */
+  .aufgabe-kopf {
+    gap: 10px;
+  }
+  .zeitleiste-text {
+    flex-direction: column;
+    font-size: 13px;
+  }
+  .balken {
+    height: 10px;
+  }
+  .sterne {
+    font-size: 20px;
+    gap: 4px;
+  }
+  .sterne svg {
+    width: 24px;
+    height: 24px;
+  }
+  .aufgabe-mitte {
+    gap: 16px;
+  }
+  .aufgabe-links {
+    gap: 14px;
+  }
+  .rechnung {
+    gap: 12px;
+  }
+  .rechnung-text {
+    font-size: 56px;
+  }
+  .antwort {
+    min-width: 88px;
+    height: 72px;
+    border-radius: 20px;
+    border-width: 3px;
+    font-size: 48px;
+  }
+  .feld-rahmen .abschnitt {
+    font-size: 15px !important;
+  }
+  .zwanzigerfeld {
+    align-self: stretch;
+    align-items: center;
+    padding: 10px;
+    gap: 6px;
+    border-radius: 18px;
+  }
+  .plaettchen {
+    width: 25px;
+    height: 25px;
+  }
+  .plaettchen.weg,
+  .plaettchen.leer {
+    border-width: 2px;
+  }
+  .hilfe,
+  .lob {
+    padding: 14px 16px;
+    gap: 14px;
+    border-radius: 20px;
+  }
+  .hilfe > svg {
+    width: 40px;
+    height: 40px;
+  }
+  .hilfe-titel {
+    font-size: 18px;
+  }
+  .hilfe-zeile {
+    font-size: 22px;
+  }
+  .hilfe-zeile.neben {
+    font-size: 17px;
+  }
+  .fast {
+    font-size: 18px;
+  }
+  .lob svg {
+    width: 40px;
+    height: 40px;
+  }
+  .lob-text {
+    font-size: 20px;
+  }
+  .aufgabe-rechts {
+    gap: 12px;
+  }
+  .zahlenpad {
+    grid-auto-rows: 58px;
+    gap: 10px;
+  }
+  .taste {
+    border-radius: 18px;
+    font-size: 28px;
+  }
+  .zwischen {
+    gap: 18px;
+  }
+  .zwischen h1 {
+    font-size: 36px;
+  }
+  .zwischen p {
+    font-size: 19px;
+  }
+  .zwischen .sterne-gross {
+    font-size: 48px;
+  }
+  .zwischen .sterne-gross svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Rechentricks */
+  .trick-karten {
+    gap: 10px;
+  }
+  .trick-karte {
+    border-radius: 18px;
+    padding: 12px 14px;
+    min-height: 88px;
+    gap: 4px;
+  }
+  .trick-karte .titel {
+    font-size: 18px;
+  }
+  .trick-karte .beispiel {
+    font-size: 20px;
+  }
+  .trick-detail {
+    flex: none;
+    border-radius: 24px;
+    padding: 18px;
+    gap: 18px;
+  }
+  .trick-detail h2 {
+    font-size: 24px;
+  }
+  .zitat {
+    padding: 12px 14px;
+    font-size: 17px;
+  }
+  .trick-zeile {
+    font-size: 24px;
+  }
+  .punkte-label {
+    font-size: 14px;
+  }
+  .punkte-reihe {
+    gap: 4px;
+  }
+  .punkt {
+    width: 24px;
+    height: 24px;
+  }
+  .punkt.luecke {
+    margin-right: 10px;
+  }
+
+  /* Einstellungen */
+  .einstellungen-reihe {
+    gap: 16px;
+  }
+  .name-eingabe {
+    height: 56px;
+    font-size: 22px;
+  }
+  .stepper {
+    gap: 14px;
+  }
+  .stepper button {
+    width: 56px;
+    height: 56px;
+  }
+  .stepper-wert {
+    min-width: 110px;
+  }
+  .stepper-wert .zahl {
+    font-size: 52px;
+  }
+  .stepper-wert .einheit {
+    font-size: 18px;
+  }
+  .verteilung {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .verteilung > div {
+    padding: 10px 12px;
+  }
+  .verteilung .titel {
+    font-size: 17px;
+  }
+
+  /* Elternansicht */
+  .eltern-mitte {
+    gap: 16px;
+  }
+  .trick-stand .zeile {
+    font-size: 16px;
+  }
+  .stand-chip {
+    font-size: 13px;
+  }
+  .wert-zeile {
+    gap: 12px;
+    font-size: 16px;
+  }
+  .wert-zeile b {
+    text-align: right;
+  }
+  .tipp p {
+    font-size: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
