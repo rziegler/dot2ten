@@ -584,6 +584,18 @@ body:has(.screen.eltern) {
   color: var(--tinte-2);
 }
 
+.hilfe .tauschen {
+  align-self: flex-start;
+  margin-top: 8px;
+  background: #fff;
+}
+
+.hilfe .tauschen[aria-pressed='true'] {
+  background: var(--tinte);
+  border-color: var(--tinte);
+  color: #fff;
+}
+
 .fast {
   font-weight: 800;
   font-size: 24px;

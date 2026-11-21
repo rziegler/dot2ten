@@ -55,4 +55,13 @@ describe('zwanzigerfeld', () => {
     expect(zwanzigerfeld(minus146, true).flatMap((x, i) => (x.markiert ? [i] : []))).toEqual([10, 11, 12, 13]);
     expect(zwanzigerfeld(plus86, false).some((x) => x.markiert)).toBe(false);
   });
+
+  it('legt getauscht zuerst die blauen, dann die roten Plättchen', () => {
+    const tausch: Aufgabe = { a: 3, op: '+', b: 8, ergebnis: 11, fertigkeit: 'tausch' };
+    const f = zwanzigerfeld(tausch, true, true).map((x) => x.art);
+    expect(f.slice(0, 8).every((x) => x === 'blau')).toBe(true);
+    expect(f.slice(8, 11).every((x) => x === 'rot')).toBe(true);
+    expect(f.slice(11).every((x) => x === 'leer')).toBe(true);
+    expect(zwanzigerfeld(tausch, true, false).map((x) => x.art).slice(0, 3)).toEqual(['rot', 'rot', 'rot']);
+  });
 });

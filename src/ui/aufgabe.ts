@@ -26,6 +26,7 @@ export function aufgabeScreen(root: HTMLElement): () => void {
   let aufgabe = ziehe();
   let eingabe = '';
   let hilfe = false;
+  let getauscht = false;
   let resultat: Resultat = 'offen';
   let ersterVersuch = true;
 
@@ -51,6 +52,7 @@ export function aufgabeScreen(root: HTMLElement): () => void {
     aufgabe = ziehe();
     eingabe = '';
     hilfe = false;
+    getauscht = false;
     resultat = 'offen';
     ersterVersuch = true;
   }
@@ -137,10 +139,12 @@ export function aufgabeScreen(root: HTMLElement): () => void {
   }
 
   function feld(): HTMLElement {
-    const felder = zwanzigerfeld(aufgabe, hilfe).map((f) => h('div', { class: `plaettchen ${f.art}${f.markiert ? ' markiert' : ''}` }));
+    const felder = zwanzigerfeld(aufgabe, hilfe, getauscht).map((f) => h('div', { class: `plaettchen ${f.art}${f.markiert ? ' markiert' : ''}` }));
     const beschreibung =
       aufgabe.op === '+'
-        ? `${aufgabe.a} rote und ${aufgabe.b} blaue Plättchen`
+        ? getauscht
+          ? `${aufgabe.b} blaue und ${aufgabe.a} rote Plättchen`
+          : `${aufgabe.a} rote und ${aufgabe.b} blaue Plättchen`
         : `${aufgabe.a} rote Plättchen, ${aufgabe.b} davon durchgestrichen`;
     return h(
       'div',
@@ -166,6 +170,12 @@ export function aufgabeScreen(root: HTMLElement): () => void {
         { class: 'hilfe-text' },
         h('span', { class: 'hilfe-titel' }, hl.titel),
         hl.zeilen.map((z, i) => h('span', { class: `hilfe-zeile${i >= 2 ? ' neben' : ''}` }, z)),
+        aufgabe.fertigkeit === 'tausch' &&
+          h(
+            'button',
+            { class: 'pille klein rahmen tauschen', 'aria-pressed': String(getauscht), onclick: () => ((getauscht = !getauscht), zeichne()) },
+            'Tauschen',
+          ),
       ),
     );
   }
