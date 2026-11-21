@@ -1,8 +1,8 @@
-import '@fontsource/fredoka/500.css';
-import '@fontsource/fredoka/600.css';
-import '@fontsource/nunito/600.css';
-import '@fontsource/nunito/700.css';
-import '@fontsource/nunito/800.css';
+import '@fontsource/fredoka/latin-500.css';
+import '@fontsource/fredoka/latin-600.css';
+import '@fontsource/nunito/latin-600.css';
+import '@fontsource/nunito/latin-700.css';
+import '@fontsource/nunito/latin-800.css';
 import './style.css';
 import { aufgabeScreen } from './ui/aufgabe';
 import { einstellungenScreen } from './ui/einstellungen';
