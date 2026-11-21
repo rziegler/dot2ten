@@ -2,6 +2,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  // Relativ, damit die App unter jedem Pfad läuft (z. B. GitHub Pages unter /dot2ten/).
+  base: './',
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',

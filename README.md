@@ -2,7 +2,7 @@
 
 Eine kleine Rechen-App für Kinder der 1. Klasse (Schweiz, Lehrplan 21). Das Kind übt täglich ein paar Minuten **Plus und Minus im Zahlenraum bis 20** – mit dem Zwanzigerfeld und den Rechentricks aus dem Unterricht: Tauschaufgabe, Nachbaraufgabe, Halbieren und Verdoppeln, kleine und grosse Aufgabe, Zehnerstopp und verliebte Zahlen.
 
-Gedacht für ein Tablet im Querformat. Die App läuft als PWA auch offline.
+Gedacht für ein Tablet im Querformat. Die App läuft als PWA auch offline: https://rziegler.github.io/dot2ten/
 
 ## So funktioniert es
 
@@ -33,7 +33,13 @@ npm run build      # Typprüfung und Produktions-Build nach dist/
 npm run preview    # Produktions-Build lokal ansehen (inkl. Service Worker)
 ```
 
-Für die Installation auf dem Tablet `dist/` auf einen beliebigen statischen Webserver mit HTTPS legen, die Seite im Browser öffnen und «Zum Home-Bildschirm» wählen.
+## Veröffentlichung
+
+Jeder Push auf `main` testet, baut und veröffentlicht die App über GitHub Actions (`.github/workflows/pages.yml`) auf GitHub Pages:
+
+**https://rziegler.github.io/dot2ten/**
+
+Auf dem Tablet die Seite im Browser öffnen und «Zum Home-Bildschirm» wählen. Danach läuft die App auch ohne Internet.
 
 ## Aufbau
 
