@@ -18,7 +18,10 @@ export function startScreen(root: HTMLElement): void {
   const plan = session && !fertig ? session.plan : verteileZeit(d.einstellungen.minuten);
   const gesamtMin = plan.reduce((s, m) => s + m, 0);
   const restMin = laeuft ? Math.ceil(restMs(session) / 60_000) : gesamtMin;
-  const anteil = laeuft ? restMs(session) / gesamtPlanMs(session) : 1;
+  // Abgerundet, damit gerechnete und restliche Minuten zusammen die Tagesdauer ergeben.
+  const gerechnetMin = laeuft ? gesamtMin - restMin : 0;
+  // Der Ring füllt sich wie der Balken in der Aufgabe: rot ist die schon gerechnete Zeit.
+  const anteil = fertig ? 1 : laeuft ? 1 - restMs(session) / gesamtPlanMs(session) : 0;
 
   const untertitel = fertig
     ? `Geschafft! Heute hast du ${session.sterne} ${session.sterne === 1 ? 'Stern' : 'Sterne'} gesammelt.`
@@ -67,8 +70,8 @@ export function startScreen(root: HTMLElement): void {
             h(
               'div',
               { class: 'zeitring-text' },
-              h('span', { class: 'zeitring-zahl' }, fertig ? session.sterne : restMin),
-              h('span', { class: 'zeitring-einheit leise' }, fertig ? (session.sterne === 1 ? 'Stern' : 'Sterne') : 'Minuten'),
+              h('span', { class: 'zeitring-zahl' }, fertig ? session.sterne : gerechnetMin),
+              h('span', { class: 'zeitring-einheit leise' }, fertig ? (session.sterne === 1 ? 'Stern' : 'Sterne') : `von ${gesamtMin} Min.`),
             ),
           ),
           h('button', { class: 'pille rot gross', onclick: los }, svg(PLAY), fertig ? 'Nochmals üben' : laeuft ? "Weiter geht's" : "Los geht's"),

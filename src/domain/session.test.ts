@@ -21,6 +21,13 @@ describe('Session', () => {
     expect(restMs(s)).toBe(8 * MIN);
   });
 
+  it('rechnet die Restzeit aus der gerechneten Zeit, nicht aus dem Block', () => {
+    let s = vergehen(neueSession('2026-11-23', 10), 2 * MIN);
+    s = { ...s, block: 3, blockMs: 0 };
+    expect(restMs(s)).toBe(8 * MIN);
+    expect(restMs(vergehen(s, 20 * MIN))).toBe(0);
+  });
+
   it('ist nach dem letzten Block fertig', () => {
     let s = neueSession('2026-11-23', 5);
     for (let i = 0; i < 4; i++) s = naechsterBlock(vergehen(s, s.plan[s.block]! * MIN));

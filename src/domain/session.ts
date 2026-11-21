@@ -45,10 +45,10 @@ export function naechsterBlock(s: Session): Session {
   return { ...s, block: s.block + 1, blockMs: 0 };
 }
 
+/** Eingestellte Tagesdauer minus tatsächlich gerechnete Zeit, unabhängig davon, in welchem Block man steht. */
 export function restMs(s: Session): number {
   if (s.fertig) return 0;
-  const offen = s.plan.slice(s.block).reduce((sum, m) => sum + m, 0) * MINUTE;
-  return Math.max(0, offen - s.blockMs);
+  return Math.max(0, gesamtPlanMs(s) - s.gesamtMs);
 }
 
 export function gesamtPlanMs(s: Session): number {
